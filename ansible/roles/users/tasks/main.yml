@@ -1,7 +1,30 @@
-- name: Create a 2048-bit SSH key for user jsmith in ~jsmith/.ssh/id_rsa
+- name: Add the user 'girls'
   ansible.builtin.user:
-    name: jsmith
-    password: !
-    generate_ssh_key: yes
-    ssh_key_bits: 2048
-    ssh_key_file: .ssh/id_rsa
+    name: girls
+    groups: wheel
+    append: yes
+    state: present
+
+
+
+- name: Creating ssh directory
+  file:
+    path: /home/girls/.ssh
+    state: directory
+    owner: girls
+    group: girls
+    mode: '0700'
+
+- name: Copy key 1
+  copy:
+    src: ssh_private
+    dest: /home/girls/.ssh
+    owner: girls
+    group: girls
+
+- name: Copy key 2
+  copy:
+    src: ssh_public
+    dest: /home/girls/.ssh
+    owner: girls
+    group: girls
