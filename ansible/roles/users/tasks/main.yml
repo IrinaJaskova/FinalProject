@@ -6,7 +6,6 @@
     state: present
 
 
-
 - name: Creating ssh directory
   file:
     path: /home/girls/.ssh
@@ -17,14 +16,30 @@
 
 - name: Copy key 1
   copy:
-    src: ssh_private
+    src: key
     dest: /home/girls/.ssh
     owner: girls
     group: girls
+    mode: '0600'
 
 - name: Copy key 2
   copy:
-    src: ssh_public
+    src: key.pub
     dest: /home/girls/.ssh
     owner: girls
     group: girls
+    mode: '0644'
+
+
+- name: Add key to ssh-agent
+  shell: eval $(ssh-agent) && ssh-add /home/girls/.ssh/key
+  become_user: girls
+
+- name: Checkout repo
+  become_user: girls
+  git:
+    repo: https://github.com/R-Alisa/array_loop.git
+    dest: /home/girls/github
+
+
+
