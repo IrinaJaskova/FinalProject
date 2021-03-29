@@ -35,11 +35,6 @@
   shell: eval $(ssh-agent) && ssh-add /home/girls/.ssh/key
   become_user: girls
 
-- name: Checkout repo
-  become_user: girls
-  git:
-    repo: https://github.com/R-Alisa/HelloWorld.git
-    dest: /home/girls/github
 
 
 
