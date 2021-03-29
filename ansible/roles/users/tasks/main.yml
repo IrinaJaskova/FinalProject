@@ -38,7 +38,7 @@
 - name: Checkout repo
   become_user: girls
   git:
-    repo: https://github.com/R-Alisa/array_loop.git
+    repo: https://github.com/R-Alisa/HelloWorld.git
     dest: /home/girls/github
 
 
